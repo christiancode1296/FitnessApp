@@ -4,7 +4,7 @@
 
 <template>
   <header>
-  <h1 class="text-gradient">SMOLGRAM </h1>
+  <h1 class="text-gradient">ACE </h1>
   </header>
   <main>
     <slot />
@@ -14,6 +14,7 @@
     <a href="https://github.com/christiancode1296/FitnessApp" target="_blank">
       <img alt="pfp" src="https://avatars.githubusercontent.com/u/143355041?v=4"/>
       <p>Ace</p>
+      <i class="fa-brands fa-github"></i>
     </a>
   </footer>
 </template>
