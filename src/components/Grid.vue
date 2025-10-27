@@ -6,14 +6,14 @@
 
 <template>
   <section id="grid">
-    <button :key="workoutId" v-for="(workout,workoutIdx) in Object.keys(workoutProgram)" class="card-button-plan-card">
+    <button :key="workoutIdx" v-for="(workout,workoutIdx) in Object.keys(workoutProgram)" class="card-button-plan-card">
       <div>
         <p>Day {{workoutIdx < 9 ? '0' + (workoutIdx + 1 ) : workoutIdx +1}}</p>
-        <i class="fa-solid fa-dumbbell"></i>
-        <i class="fa-solid fa-weight-hanging"></i>
-        <i class="fa-solid fa-bolt"></i>
+        <i class="fa-solid fa-dumbbell" v-if="workoutIdx % 3 === 0"></i>
+        <i class="fa-solid fa-weight-hanging" v-if="workoutIdx % 3 === 1"></i>
+        <i class="fa-solid fa-bolt" v-if="workoutIdx % 3 === 2"></i>
       </div>
-      <h3>TYPES</h3>
+      <h3>{{ workoutTypes[workoutIdx % 3]}}</h3>
     </button>
   </section>
 
