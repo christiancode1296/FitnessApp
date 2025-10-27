@@ -20,5 +20,32 @@
 </template>
 
 <style scoped>
+#grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
 
+#grid button {
+  width: 100%;
+}
+.plan-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-card div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.plan-card div p {
+  text-align: left;
+}
+@media (min-width: 640px) {
+  #grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 </style>
