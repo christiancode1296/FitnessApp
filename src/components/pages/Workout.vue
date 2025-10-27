@@ -1,9 +1,35 @@
 <script setup>
-
+import {workoutProgram} from "../../utils/index.js";
+const selectedWorkout = 4;
+const { workout, warmup } = workoutProgram[selectedWorkout];
 </script>
 
 <template>
-<div>Workout</div>
+  <section id="workout-card">
+    <div class="plan-card card">
+      <div class="plan-card-header">
+        <p> Day {{selectedWorkout < 9 ? '0' + selectedWorkout : selectedWorkout}}</p>
+        <i class="fa-solid fa-dumbbell"></i>
+      </div>
+      <h2>{{'Push'}}Workout</h2>
+    </div>
+    <div class="workout-grid">
+      <h4 class="grid-name">Warmup</h4>
+      <h6>Sets</h6>
+      <h6>Reps</h6>
+      <h6 class="grid-weights">Weights</h6>
+      <div class="workout-grid" v-for="(w, wIdx) in warmup" :key="wIdx">
+        <div class="grid-name">
+          <p>{{w.name}}</p>
+          <button><i class="fa-regular fa-circle-question"></i></button>
+        </div>
+        <p>{{w.sets}}</p>
+        <p>{{w.reps}}</p>
+        <input class="grid-weights" placeholder="14kg" type="text"/>
+      </div>
+    </div>
+  </section>
+
 </template>
 
 <style scoped>
