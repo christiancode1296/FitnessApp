@@ -13,7 +13,7 @@ function handleCloseModal() {
 </script>
 
 <template>
-    <Portal v-if="selectedExercise">
+    <Portal :handle-close-modal="handleCloseModal" v-if="selectedExercise">
       <div class="exercise-description">
         <h3>{{ selectedExercise}}</h3>
         <div>
