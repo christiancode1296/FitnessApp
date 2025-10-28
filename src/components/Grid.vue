@@ -2,11 +2,15 @@
   import {workoutProgram} from "../utils/index.js";
 
   const workoutTypes = ['Push', 'Pull', 'Legs']
+  defineProps({
+    handleSelectWorkout: Function
+  })
+
 </script>
 
 <template>
   <section id="grid">
-    <button :key="workoutIdx" v-for="(workout,workoutIdx) in Object.keys(workoutProgram)" class="card-button-plan-card">
+    <button disabled="" @click="() => handleSelectWorkout(workoutIdx)" :key="workoutIdx" v-for="(workout,workoutIdx) in Object.keys(workoutProgram)" class="card-button-plan-card">
       <div>
         <p>Day {{workoutIdx < 9 ? '0' + (workoutIdx + 1 ) : workoutIdx +1}}</p>
         <i class="fa-solid fa-dumbbell" v-if="workoutIdx % 3 === 0"></i>
@@ -29,6 +33,11 @@
 #grid button {
   width: 100%;
 }
+#grid button:disabled {
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 .plan-card {
   display: flex;
   flex-direction: column;
