@@ -37,9 +37,11 @@ const firstIncompleteWorkoutIndex = computed(() => {
   for (const [index, workout] of Object.entries(allWorkouts)) {
     const isComplete = Object.values(workout).every(ex => !!ex)
     if(!isComplete) {
+      console.log('First incomplete workout index:', parseInt(index))
       return parseInt(index)
     }
   }
+  console.log('All workouts complete, returning -1')
   return -1;
 })
 
@@ -48,8 +50,11 @@ function handleChangeDisplay(idx) {
   selectedDisplay.value = idx;
 }
 function handleSelectWorkout(idx) {
+  console.log('handleSelectWorkout called with idx:', idx)
+  console.log('Setting selectedDisplay to 3')
   selectedDisplay.value = 3;
   selectedWorkout.value = idx;
+  console.log('selectedDisplay:', selectedDisplay.value, 'selectedWorkout:', selectedWorkout.value)
 }
 function handleSaveWorkout() {
   localStorage.setItem('workouts', JSON.stringify(data.value))
@@ -68,7 +73,7 @@ function handleSaveWorkout() {
     <!--    PAGE 2 -->
     <Dashboard :firstIncompleteWorkoutIndex="firstIncompleteWorkoutIndex" :handleSelectWorkout="handleSelectWorkout" v-if="selectedDisplay === 2"/>
     <!--    PAGE 3 -->
-    <Workout :handleSaveWorkout :isWorkoutComplete="istWorkoutComplete"  :data="data" :selectedWorkout="selectedWorkout" v-if="workoutProgram?.[selectedWorkout]"/>
+    <Workout :handleSaveWorkout="handleSaveWorkout" :isWorkoutComplete="istWorkoutComplete"  :data="data" :selectedWorkout="selectedWorkout" v-if="selectedDisplay === 3"/>
   </Layout>
 </template>
 

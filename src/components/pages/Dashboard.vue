@@ -1,11 +1,12 @@
 <script setup>
   import {gymHealthFacts} from "../../utils/index.js";
   import Grid from "../Grid.vue";
-  const { handleSelectWorkout, firstIncompleteWorkoutIndex} = defineProps({
+  const props = defineProps({
     handleSelectWorkout: Function,
     firstIncompleteWorkoutIndex: Number
 
   })
+  const { handleSelectWorkout, firstIncompleteWorkoutIndex} = props
 
   // generate random integer number between 0 and array lengths -1
   const randomNumber = Math.floor(Math.random() *gymHealthFacts.length)

@@ -1,16 +1,20 @@
 <script setup>
   import {workoutProgram} from "../utils/index.js";
 
-  const workoutTypes = ['Push', 'Pull', 'Legs']
-  defineProps({
-    handleSelectWorkout: Function
+  const props = defineProps({
+    handleSelectWorkout: Function,
+    firstIncompleteWorkoutIndex: Number
   })
+
+  const workoutTypes = ['Push', 'Pull', 'Legs']
+
+  console.log('Grid: firstIncompleteWorkoutIndex =', props.firstIncompleteWorkoutIndex)
 
 </script>
 
 <template>
   <section id="grid">
-    <button disabled="" @click="() => handleSelectWorkout(workoutIdx)" :key="workoutIdx" v-for="(workout,workoutIdx) in Object.keys(workoutProgram)" class="card-button-plan-card">
+    <button :disabled="firstIncompleteWorkoutIndex !== -1 && workoutIdx > firstIncompleteWorkoutIndex" @click="handleSelectWorkout(workoutIdx)" :key="workoutIdx" v-for="(workout, workoutIdx) in Object.keys(workoutProgram)"  class="card-button plan-card">
       <div>
         <p>Day {{workoutIdx < 9 ? '0' + (workoutIdx + 1 ) : workoutIdx +1}}</p>
         <i class="fa-solid fa-dumbbell" v-if="workoutIdx % 3 === 0"></i>
@@ -18,6 +22,10 @@
         <i class="fa-solid fa-bolt" v-if="workoutIdx % 3 === 2"></i>
       </div>
       <h3>{{ workoutTypes[workoutIdx % 3]}}</h3>
+    </button>
+    <button :disabled="firstIncompleteWorkoutIndex != -1" @click="handleReset" class="plan-card-reset card-button">
+      <p>Reset</p>
+      <i class="fa-solid fa-rotate-left"></i>
     </button>
   </section>
 
@@ -52,6 +60,14 @@
 .plan-card div p {
   text-align: left;
 }
+
+.plan-card-reset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 @media (min-width: 640px) {
   #grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
