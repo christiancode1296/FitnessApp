@@ -1,8 +1,9 @@
 <script setup>
   import {gymHealthFacts} from "../../utils/index.js";
   import Grid from "../Grid.vue";
-  const props = defineProps({
-    handleSelectWorkout: Function
+  const { handleSelectWorkout, firstIncompleteWorkoutIndex} = defineProps({
+    handleSelectWorkout: Function,
+    firstIncompleteWorkoutIndex: Number
 
   })
 
@@ -19,7 +20,7 @@
       <div>
       <p class ="tip"> <strong>Daily Tip</strong> <br/> {{todayFact}} </p>
       </div>
-      <button>Start Workout &rarr;</button>
+      <button @click="() => handleSelectWorkout(firstIncompleteWorkoutIndex < 0 ? 0 : firstIncompleteWorkoutIndex)">Start workout &rarr;</button>
     </div>
     <Grid v-bind="props" />
   </section>

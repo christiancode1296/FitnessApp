@@ -23,10 +23,26 @@ const selectedWorkout = ref(-1);
 
 const istWorkoutComplete = computed(() => {
   const currWorkout= data.value?.[selectedWorkout.value];
-  if (!currWorkout) {return false;}
+  if (!currWorkout) {return false}
 
   const isCompleteCheck =Object.values(currWorkout).every(ex => !!ex)
+  console.log('ISCOMPLETE: ', isCompleteCheck)
+  return isCompleteCheck
   })
+
+const firstIncompleteWorkoutIndex = computed(() => {
+  const allWorkouts = data.value
+  if(!allWorkouts) {return -1}
+
+  for (const [index, workout] of Object.entries(allWorkouts)) {
+    const isComplete = Object.values(workout).every(ex => !!ex)
+    if(!isComplete) {
+      return parseInt(index)
+    }
+  }
+  return -1;
+})
+
 
 function handleChangeDisplay(idx) {
   selectedDisplay.value = idx;
@@ -36,7 +52,7 @@ function handleSelectWorkout(idx) {
   selectedWorkout.value = idx;
 }
 function handleSaveWorkout() {
-  localstorage.setItem('workouts', JSON.stringify(data.value))
+  localStorage.setItem('workouts', JSON.stringify(data.value))
 
   selectedDisplay.value = 2;
   selectedWorkout.value = -1;
@@ -50,9 +66,9 @@ function handleSaveWorkout() {
     <!--     PAGE 1 -->
     <Welcome :handleChangeDisplay="handleChangeDisplay" v-if="selectedDisplay === 1"/>
     <!--    PAGE 2 -->
-    <Dashboard :handleSelectWorkout="handleSelectWorkout" v-if="selectedDisplay === 2"/>
+    <Dashboard :firstIncompleteWorkoutIndex="firstIncompleteWorkoutIndex" :handleSelectWorkout="handleSelectWorkout" v-if="selectedDisplay === 2"/>
     <!--    PAGE 3 -->
-    <Workout :data="data" :selectedWorkout="selectedWorkout" v-if="workoutProgram?.[selectedWorkout]"/>
+    <Workout :handleSaveWorkout :isWorkoutComplete="istWorkoutComplete"  :data="data" :selectedWorkout="selectedWorkout" v-if="workoutProgram?.[selectedWorkout]"/>
   </Layout>
 </template>
 
