@@ -4,7 +4,7 @@
 
 <template>
   <header>
-  <h1 class="text-gradient">ACE </h1>
+  <h1 class="text-gradient">FitnessAPP 2026 </h1>
   </header>
   <main>
     <slot />
