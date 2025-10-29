@@ -3,8 +3,8 @@
 
   const props = defineProps({
     handleSelectWorkout: Function,
-    firstIncompleteWorkoutIndex: Number
-    handleResetPlan: Function,
+    firstIncompleteWorkoutIndex: Number,
+    handleResetPlan: Function
   })
 
   const workoutTypes = ['Push', 'Pull', 'Legs']
