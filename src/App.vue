@@ -62,6 +62,12 @@ function handleSaveWorkout() {
   selectedDisplay.value = 2;
   selectedWorkout.value = -1;
 
+  function handleResetPlan() {
+    selectedDisplay.value = 2
+    selectedWorkout.value = -1
+    data.value = defaultData
+    localStorage.removeItem('workouts')
+  }
 
 }
 </script>
